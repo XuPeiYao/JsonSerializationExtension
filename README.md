@@ -1,0 +1,3 @@
+# JsonSerializationExtension
+JSON物件的序列化與反序列化支援
+本專案使用Netbeans建構
