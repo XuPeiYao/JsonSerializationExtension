@@ -33,7 +33,7 @@ public class JSONConvert {
         try {
             if (objType.isArray()) {
                 return serializeArray(obj);
-            } else if (objType.isAnnotationPresent(JSONSerializable.class)) {//coustom class              
+            } else if (objType.isAnnotationPresent(JSONSerializable.class)) {//custom class              
                 return serializeObject(obj);
             }
         }catch(Exception e){
