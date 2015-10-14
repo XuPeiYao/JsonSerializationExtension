@@ -139,7 +139,8 @@ public class JSONConvert {
     public static <T> T deserialize(Class<T> type,Object json) throws DeserializeException {
         Class objType = json.getClass();
         if (json == null) return null;
-
+        if (json == JSONObject.NULL)return null;
+        
         try {
             if (type.isArray()) {
                 return deserializeArray(type, (JSONArray) json);

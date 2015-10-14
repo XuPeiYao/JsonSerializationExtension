@@ -1,28 +1,45 @@
 package org.json.serialization.test;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.serialization.*;
 public class Test {
-    public static enum Type{Student,Teacher}
-    @JSONSerializable
-    public static class User{
-        @JSONProperty
-        public Type type = Type.Teacher;
-        
-        @JSONProperty
-        public String name="XPY";
-        
-        @JSONProperty
-        public int year;
-        
-        @JSONProperty
-        public double weight;
+    public static enum ChatType {
+        Text,
+        Typing,
+        Status,
+        HookStatus,
+        UnhookStatus,
+        ClearHook,
+        RequestInfo
     }
-    public static void main(String[] args) throws SerializeException, DeserializeException{
-        User obj_ = new User();
-        obj_.weight=81.2222;
-        obj_.year = 2015;
+    
+    @JSONSerializable
+    public static class ChatData {
+        @JSONProperty
+        public ChatType type;
+
+        @JSONProperty
+        public Object content;
+
+        @JSONProperty
+        public String sourceUId;
+
+        @JSONProperty
+        public String targetUId;
+
+        @JSONProperty
+        public long time;
+
+        public String GetTimeString() {
+            Date time_ = new Date(time);
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(time_);
+        }
+    }
+    public static void main(String[] args) throws SerializeException, DeserializeException, JSONException{
         
-        JSONObject jObj = JSONConvert.serialize(obj_);
-        User obj = JSONConvert.deserialize(User.class,jObj);
+        JSONObject jObj = new JSONObject("{\"type\":\"Text\",\"sourceUId\":\"1085727241444815\",\"targetUId\":\"850283428397119\",\"content\":\"\",\"time\":1444810071867}");
+        ChatData obj = JSONConvert.deserialize(ChatData.class,jObj);
     }
 }
