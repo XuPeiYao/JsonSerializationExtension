@@ -5,7 +5,7 @@ package org.json.serialization;
  */
 public class BaseConverter implements IJSONConverter {
     private static boolean checkBaseType(Class Type){
-        Class[] BaseTypes = new Class[]{byte.class,short.class,int.class,long.class,float.class,double.class,boolean.class,char.class};
+        Class[] BaseTypes = new Class[]{String.class,byte.class,short.class,int.class,long.class,float.class,double.class,boolean.class,char.class};
         boolean result = false;
         for(Class t : BaseTypes){
             if(t.equals(Type))

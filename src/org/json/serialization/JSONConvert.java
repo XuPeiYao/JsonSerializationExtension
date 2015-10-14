@@ -79,11 +79,13 @@ public class JSONConvert {
             if(!setting.getable())continue;
 
             Object value = m.invoke(obj);
-            Class valueType = value.getClass();
+            Class valueType = null;
+            if(value!=null)valueType = value.getClass();
+            
             if(value == null){
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
-            }else if(value != null && value.getClass().isArray()){
+            }else if(value.getClass().isArray()){
                 value = serialize(value);
             }else{
                 value = BaseConverter.serialize(value);
@@ -103,11 +105,13 @@ public class JSONConvert {
             if(!setting.getable())continue;
 
             Object value = f.get(obj);
-            Class valueType = value.getClass();
+            Class valueType = null;
+            if(value!=null)valueType = value.getClass();
+            
             if(value == null){
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
-            }else if(value != null && value.getClass().isArray()){
+            }else if(value.getClass().isArray()){
                 value = serialize(value);
             }else{
                 value = BaseConverter.serialize(value);
