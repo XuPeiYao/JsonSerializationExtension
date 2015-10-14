@@ -33,7 +33,7 @@ public class JSONConvert {
         try {
             if (objType.isArray()) {
                 return serializeArray(obj);
-            } else if (objType.isAnnotationPresent(JSONSerializable.class)) {//coustom class
+            } else if (objType.isAnnotationPresent(JSONSerializable.class)) {//coustom class              
                 return serializeObject(obj);
             }
         }catch(Exception e){
@@ -64,12 +64,20 @@ public class JSONConvert {
         return (T)result;
     }
 
-    private static <T> T serializeObject(Object obj) throws DeserializeException, InvocationTargetException, IllegalAccessException, JSONException, SerializeException {
+    private static <T> T serializeObject(Object obj) throws DeserializeException, InvocationTargetException, IllegalAccessException, JSONException, SerializeException, NoSuchMethodException, InstantiationException {
         IJSONConverter BaseConverter = new BaseConverter();
         JSONObject result = new JSONObject();
-
-        Method[] methods = obj.getClass().getDeclaredMethods();//get all methods
-        Field[] fields = obj.getClass().getDeclaredFields();//get all fields
+        
+        Class objType = obj.getClass();
+        JSONSerializable serializableSetting = (JSONSerializable) objType.getAnnotation(JSONSerializable.class);
+        
+        if(!serializableSetting.converter().equals(JSONConvert.class)){
+            IJSONConverter converter = (IJSONConverter) serializableSetting.converter().getConstructor().newInstance();
+            return converter.serialize(obj);
+        }
+        
+        Method[] methods = objType.getDeclaredMethods();//get all methods
+        Field[] fields = objType.getDeclaredFields();//get all fields
 
         for(Method m : methods){
             if(!m.isAnnotationPresent(JSONProperty.class))continue;
@@ -171,6 +179,14 @@ public class JSONConvert {
         IJSONConverter BaseConverter = new BaseConverter();
 
         T result = (T) type.getConstructor().newInstance();
+        
+        JSONSerializable serializableSetting = (JSONSerializable) type.getAnnotation(JSONSerializable.class);
+        
+        if(!serializableSetting.converter().equals(JSONConvert.class)){
+            IJSONConverter converter = (IJSONConverter) serializableSetting.converter().getConstructor().newInstance();
+            return (T) converter.deserialize(type, json);
+        }
+        
         Method[] methods = type.getDeclaredMethods();//get all methods
         Field[] fields = type.getDeclaredFields();//get all fields
 
