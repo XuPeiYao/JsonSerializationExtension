@@ -1,4 +1,5 @@
 package org.json.serialization.test;
+import org.json.serialization.converters.DateConverter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.JSONException;
@@ -29,17 +30,14 @@ public class Test {
         @JSONProperty
         public String targetUId;
 
-        @JSONProperty
-        public long time;
-
-        public String GetTimeString() {
-            Date time_ = new Date(time);
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(time_);
-        }
+        @JSONProperty(converterType =DateConverter.class)
+        public Date time;
     }
     public static void main(String[] args) throws SerializeException, DeserializeException, JSONException{
         
-        JSONObject jObj = new JSONObject("{\"type\":\"Text\",\"sourceUId\":\"1085727241444815\",\"targetUId\":\"850283428397119\",\"content\":\"\",\"time\":1444810071867}");
-        ChatData obj = JSONConvert.deserialize(ChatData.class,jObj);
+        ChatData test = new ChatData();
+        test.time = new Date();
+                
+        JSONObject d = JSONConvert.serialize(test);
     }
 }

@@ -73,7 +73,7 @@ public class JSONConvert {
         
         if(!serializableSetting.converter().equals(JSONConvert.class)){
             IJSONConverter converter = (IJSONConverter) serializableSetting.converter().getConstructor().newInstance();
-            return converter.serialize(obj);
+            return (T)converter.serialize(obj);
         }
         
         Method[] methods = objType.getDeclaredMethods();//get all methods
@@ -93,6 +93,9 @@ public class JSONConvert {
             if(value!=null)valueType = value.getClass();
             
             if(value == null){
+            }else if(!setting.converterType().equals(BaseConverter.class)) {
+                IJSONConverter converter = (IJSONConverter) setting.converterType().newInstance();
+                value =converter.serialize(value);
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
             }else if(valueType.isArray()){
@@ -121,6 +124,9 @@ public class JSONConvert {
             if(value!=null)valueType = value.getClass();
             
             if(value == null){
+            }else if(!setting.converterType().equals(BaseConverter.class)) {
+                IJSONConverter converter = (IJSONConverter) setting.converterType().newInstance();
+                value =converter.serialize(value);
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
             }else if(valueType.isArray()){

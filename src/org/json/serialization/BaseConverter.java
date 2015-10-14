@@ -18,9 +18,9 @@ public class BaseConverter implements IJSONConverter {
     }
 
     @Override
-    public <T> T serialize(Object obj) throws SerializeException {        
+    public Object serialize(Object obj) throws SerializeException {        
         if(checkBaseType(obj.getClass())){
-            return (T) obj;
+            return obj;
         }
         return JSONConvert.serialize(obj);
     }
