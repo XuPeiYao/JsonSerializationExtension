@@ -54,6 +54,8 @@ public class JSONConvert {
                 value = serialize(value);
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){//this value can serializable
                 value = serialize(value);
+            }else if(valueType.isEnum()){
+                value = value.toString();
             }else{//call base converter
                 value = BaseConverter.serialize(value);
             }
@@ -85,8 +87,10 @@ public class JSONConvert {
             if(value == null){
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
-            }else if(value.getClass().isArray()){
+            }else if(valueType.isArray()){
                 value = serialize(value);
+            }else if(valueType.isEnum()){
+                value = value.toString();
             }else{
                 value = BaseConverter.serialize(value);
             }
@@ -111,8 +115,10 @@ public class JSONConvert {
             if(value == null){
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = serialize(value);
-            }else if(value.getClass().isArray()){
+            }else if(valueType.isArray()){
                 value = serialize(value);
+            }else if(valueType.isEnum()){
+                value = value.toString();
             }else{
                 value = BaseConverter.serialize(value);
             }
@@ -150,6 +156,8 @@ public class JSONConvert {
                 value = deserialize(valueType,value);
             }else if(valueType.isAnnotationPresent(JSONSerializable.class)){
                 value = deserialize(valueType,value);
+            }else if(valueType.isEnum()){
+                value = Enum.valueOf(valueType, (String) value);
             }else{
                 value = valueType.cast(BaseConverter.deserialize(valueType,value));
             }
@@ -188,6 +196,8 @@ public class JSONConvert {
                 value =converter.deserialize(setType, value);
             } else if (setType.isAnnotationPresent(JSONSerializable.class)) {
                 value = deserialize(setType, value);
+            }else if(setType.isEnum()){
+                value = Enum.valueOf(setType, (String) value);
             } else if (setType.isArray()) {
                 value = deserialize(setType, value);
             }
@@ -219,6 +229,8 @@ public class JSONConvert {
                 value =converter.deserialize(fType,value);
             } else if (fType.isAnnotationPresent(JSONSerializable.class)) {
                 value = deserialize(fType, value);
+            }else if(fType.isEnum()){
+                value = Enum.valueOf(fType, (String) value);
             } else if (fType.isArray()) {
                 value = deserialize(fType, value);
             }
