@@ -9,6 +9,7 @@
 ## 快速上手
 ### 1.在專案中引入類別庫
 :warning:本範例以Netbeans為例，其餘IDE請自行查找引入方式。
+
 1. 於專案列表中選擇要引入的專案，點選該項目按下滑鼠右鍵，清單中點選[Properties]
 2. 於Project Properties視窗中Categories列表中選擇[Libraries]項目
 3. 於詳細設定項目選擇[Compile]標籤下的[Add JAR/Folder]開啟檔案開啟視窗，選擇要引入的JAR檔
