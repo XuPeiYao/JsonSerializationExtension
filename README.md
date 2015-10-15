@@ -9,6 +9,7 @@
 ## 快速上手
 ### 1.在專案中引入類別庫
 :warning:本範例以Netbeans為例，其餘IDE請自行查找引入方式。
+
 1. 於專案列表中選擇要引入的專案，點選該項目按下滑鼠右鍵，清單中點選[Properties]
 
 ![img](https://raw.githubusercontent.com/XuPeiYao/JsonSerializationExtension/master/README_files/Import_Step1.PNG)
