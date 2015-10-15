@@ -45,5 +45,5 @@ JSONObject json = JSONConvert.serialize(obj);//物件屬性也可為可序列化
 ```
 2. 使用JSONConvert物件中的靜態方法deserialize可以將JSON物件轉換為物件實體
 ```java
-Student obj = JSONConvert.deserialize(ChatData.class, json);//物件屬性也可為可序列化物件
+Student obj = JSONConvert.deserialize(Student.class, json);//物件屬性也可為可序列化物件
 ```
