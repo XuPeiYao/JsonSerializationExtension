@@ -5,39 +5,23 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.serialization.*;
+import org.json.serialization.converters.BytesToBase64Converter;
 public class Test {
-    public static enum ChatType {
-        Text,
-        Typing,
-        Status,
-        HookStatus,
-        UnhookStatus,
-        ClearHook,
-        RequestInfo
-    }
     
     @JSONSerializable
-    public static class ChatData {
-        @JSONProperty
-        public ChatType type;
-
-        @JSONProperty
-        public Object content;
-
-        @JSONProperty
-        public String sourceUId;
-
-        @JSONProperty
-        public String targetUId;
-
+    public static class T {
+        @JSONProperty(converterType =BytesToBase64Converter.class)
+        public byte[] P;
+    
+        
         @JSONProperty(converterType =DateConverter.class)
         public Date time;
     }
     public static void main(String[] args) throws SerializeException, DeserializeException, JSONException{
         
-        ChatData test = new ChatData();
+        T test = new T();
         test.time = new Date();
-                
+        test.P = new byte[]{1,2,3,4,5,8,8,56,55};
         JSONObject d = JSONConvert.serialize(test);
     }
 }
