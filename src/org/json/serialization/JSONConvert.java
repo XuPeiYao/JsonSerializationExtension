@@ -223,6 +223,8 @@ public class JSONConvert {
                 value = Enum.valueOf(setType, (String) value);
             } else if (setType.isArray()) {
                 value = deserialize(setType, value);
+            }else{
+                value = BaseConverter.deserialize(setType, value);
             }
 
             m.invoke(result, value);
@@ -256,6 +258,8 @@ public class JSONConvert {
                 value = Enum.valueOf(fType, (String) value);
             } else if (fType.isArray()) {
                 value = deserialize(fType, value);
+            }else{
+                value = BaseConverter.deserialize(fType, value);
             }
 
             f.set(result, value);

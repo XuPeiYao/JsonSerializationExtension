@@ -7,21 +7,27 @@ import org.json.JSONObject;
 import org.json.serialization.*;
 import org.json.serialization.converters.BytesToBase64Converter;
 public class Test {
-    
     @JSONSerializable
-    public static class T {
-        @JSONProperty(converterType =BytesToBase64Converter.class)
-        public byte[] P;
-    
+    public static class User {
+        @JSONProperty
+        public Name Name;
         
-        @JSONProperty(converterType =DateConverter.class)
-        public Date time;
+        @JSONProperty
+        public String GG;
+    }
+    @JSONSerializable
+    public static class Name{
+        @JSONProperty
+        public String First;
+        @JSONProperty
+        public String Last;
     }
     public static void main(String[] args) throws SerializeException, DeserializeException, JSONException{
+        JSONObject data = new JSONObject("{\"Name\":null,\"GG\":\"TT\"}");
         
-        T test = new T();
-        test.time = new Date();
-        test.P = new byte[]{1,2,3,4,5,8,8,56,55};
-        JSONObject d = JSONConvert.serialize(test);
+        //String FirstName = data.getJSONObject("Name").getString("First");//普通存取JSON資料方式
+        
+        User user = JSONConvert.deserialize(User.class, data);//反序列化為物件
+        //String LastName = user.Name.Last;//直接忖取屬性
     }
 }

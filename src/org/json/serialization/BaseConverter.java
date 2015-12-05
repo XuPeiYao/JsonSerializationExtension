@@ -1,5 +1,7 @@
 package org.json.serialization;
 
+import org.json.JSONObject;
+
 /**
  * Created by XuPeiYao on 2015/10/13.
  */
@@ -30,6 +32,7 @@ public class BaseConverter implements IJSONConverter {
         if(obj.getClass().equals(type)){
             return (T) obj;
         }else if(checkBaseType(type)){
+            if(JSONObject.NULL.equals(obj))return null;
             return type.cast(obj);
         }
         return JSONConvert.deserialize(type,obj);
