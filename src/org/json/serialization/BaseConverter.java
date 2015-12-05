@@ -33,7 +33,7 @@ public class BaseConverter implements IJSONConverter {
             return (T) obj;
         }else if(checkBaseType(type)){
             if(JSONObject.NULL.equals(obj))return null;
-            return type.cast(obj);
+            return obj;
         }
         return JSONConvert.deserialize(type,obj);
     }
