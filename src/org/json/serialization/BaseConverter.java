@@ -8,7 +8,7 @@ import org.json.JSONObject;
 public class BaseConverter implements IJSONConverter {
     private static boolean checkBaseType(Class Type){
         Class[] BaseTypes = new Class[]{byte.class,short.class,int.class,long.class,float.class,double.class,boolean.class,char.class};
-        Class[] ClassType = new Class[]{Byte.class,Short.class,Integer.class,Long.class,Float.class,Double.class,Boolean.class,Character.class,String.class};
+        Class[] ClassType = new Class[]{Byte.class,Short.class,Integer.class,Long.class,Float.class,Double.class,Boolean.class,Character.class,String.class,Object.class};
         for(Class t : BaseTypes){
             if(t.equals(Type))return true;
         }
@@ -33,7 +33,7 @@ public class BaseConverter implements IJSONConverter {
             return (T) obj;
         }else if(checkBaseType(type)){
             if(JSONObject.NULL.equals(obj))return null;
-            return obj;
+            return (T)obj;
         }
         return JSONConvert.deserialize(type,obj);
     }
