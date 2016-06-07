@@ -35,6 +35,6 @@ public class BaseConverter implements IJSONConverter {
             if(JSONObject.NULL.equals(obj))return null;
             return (T)obj;
         }
-        return JSONConvert.deserialize(type,obj);
+        return JSONConvert.deserialize(type,obj,false);
     }
 }
